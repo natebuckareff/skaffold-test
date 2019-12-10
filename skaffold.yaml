@@ -1,0 +1,17 @@
+apiVersion: skaffold/v1
+kind: Config
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+    - image: localhost:32000/mgdev/hello
+      context: ./services/hello
+      sync:
+        infer:
+          - '**/*.ts'
+deploy:
+  helm:
+    releases:
+      - name: mg
+        chartPath: ./charts/mg
+        namespace: mg
